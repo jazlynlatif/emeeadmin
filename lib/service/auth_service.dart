@@ -38,6 +38,4 @@ class AuthService {
     await _storage.delete(key: _accessKey);
     await _storage.delete(key: _refreshKey);
   }
-
-  Future<void> clear() => _storage.deleteAll();
 }

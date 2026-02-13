@@ -121,6 +121,9 @@ class _AssesmentWidgetState extends State<AssesmentWidget> {
                               data['answer'],
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12
+                              ),
                             ),
                           )
                         ],

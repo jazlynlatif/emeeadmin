@@ -63,8 +63,8 @@ class MedicalNotes extends StatelessWidget {
               itemBuilder: (context, index) {
                 final mednote = mednoteData![index];
                 return Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15),
@@ -94,6 +94,9 @@ class MedicalNotes extends StatelessWidget {
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           softWrap: true,
+                          style: TextStyle(
+                            fontSize: 10
+                          ),
                         ),
                       )
                     ],

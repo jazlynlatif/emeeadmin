@@ -65,7 +65,7 @@ class _HistoryState extends State<History> {
                       height: 10,
                     ),
                     Text(
-                      'From',
+                      'Dari',
                       style: TextStyle(
                         fontWeight: FontWeight.bold
                       ),
@@ -79,7 +79,7 @@ class _HistoryState extends State<History> {
                       style: TextStyle(fontSize: 14.0),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                        hintText: 'choose a starting date',
+                        hintText: 'pilih tanggal awal',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -90,7 +90,7 @@ class _HistoryState extends State<History> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter the start date';
+                          return 'Tolong masukkan tanggal awal';
                         }
                       },
                       onTap: () async{
@@ -113,7 +113,7 @@ class _HistoryState extends State<History> {
                       height: 10,
                     ),
                     Text(
-                      'To',
+                      'Sampai',
                       style: TextStyle(
                         fontWeight: FontWeight.bold
                       ),
@@ -127,7 +127,7 @@ class _HistoryState extends State<History> {
                       style: TextStyle(fontSize: 14.0),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-                        hintText: 'choose an ending date',
+                        hintText: 'pilih tanggal akhir',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)
                         ),
@@ -138,7 +138,7 @@ class _HistoryState extends State<History> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter the end date';
+                          return 'Tolong masukkan tanggal akhir';
                         }
                       },
                       onTap: () async{
@@ -175,7 +175,7 @@ class _HistoryState extends State<History> {
                           }
                           else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Start Time must be before End Time'))
+                                SnackBar(content: Text('Tanggal awal harus sebelum tanggal akhir'))
                             );
                           }
                         }

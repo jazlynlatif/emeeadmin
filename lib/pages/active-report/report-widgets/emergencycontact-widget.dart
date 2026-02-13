@@ -56,7 +56,7 @@ class EmergencyContact extends StatelessWidget {
             height: 10,
           ),
           SizedBox(
-            height: 60,
+            height: 70,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: contactData!.length,
@@ -91,8 +91,11 @@ class EmergencyContact extends StatelessWidget {
                         SizedBox(
                           width: 150,
                           child: Text(
-                            contact['contactNum']
-                          )
+                            contact['contactNum'],
+                            style: TextStyle(
+                              fontSize: 12
+                            ),
+                          ),
                         )
                       ],
                     )

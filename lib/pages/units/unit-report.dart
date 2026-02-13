@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:emee_admin/pages/active-report/report-widgets/assesment-widget.dart';
 import 'package:emee_admin/pages/active-report/report-widgets/emergencycontact-widget.dart';
 import 'package:emee_admin/pages/active-report/report-widgets/chatroom-widget.dart';
@@ -126,6 +128,25 @@ class __UnitReportState extends State<UnitReport> {
         );
       }
     );
+  }
+
+  late StreamSubscription _locationSub;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    // _locationSub = updateLocationStream(
+    //   lat,
+    //   lng,
+    //   unitsid,
+    // ).listen(
+    //   (_) {},
+    //   onError: (err) {
+    //     debugPrint('Location stream error: $err');
+    //   },
+    // );
   }
 
   @override

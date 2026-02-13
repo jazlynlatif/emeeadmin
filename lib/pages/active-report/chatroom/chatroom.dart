@@ -31,27 +31,24 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
       body: Column(
         children: [
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(),
+          Expanded(
             child: StreamBuilder(
               stream: getMessage(widget.reportid), 
               builder: (context, snapshot) {
                 if(snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
-
+            
                 if(snapshot.hasError) {
                   return Center(child: Text("Error : ${snapshot.error}"),);
                 }
-
+            
                 if(!snapshot.hasData || snapshot.data == null) {
                   return const Center(child: Text("No data"));
                 }
-
+            
                 final userData = snapshot.data!;
-
+            
                 return userData.isEmpty ?
                     Center(child: Text('mulai percakapan sekarang!')) 
                   : ListView.builder(
@@ -71,9 +68,8 @@ class _ChatRoomState extends State<ChatRoom> {
                     }
                   );
               }
-            )
+            ),
           ),
-          Spacer(),
           TextMessage(report :  widget.reportid),
           SizedBox(
             height: 15,

@@ -64,9 +64,6 @@ class _ReportHistoryState extends State<ReportHistory> {
                 return Column(
                   children: [
                     LocationMap(lat: widget.data['latitude'], long: widget.data['longitude'],),
-                    SizedBox(
-                      height: 10,
-                    ),
                     Container(
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),

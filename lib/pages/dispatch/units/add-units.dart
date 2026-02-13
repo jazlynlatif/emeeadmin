@@ -35,6 +35,7 @@ class _AddUnitsState extends State<AddUnits> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
@@ -47,17 +48,17 @@ class _AddUnitsState extends State<AddUnits> {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-
+      
           if(snapshot.hasError) {
             return Center(child: Text("Error : ${snapshot.error}"),);
           }
-
+      
           if(!snapshot.hasData || snapshot.data == null) {
             return const Spacer();
           }
-
+      
           final userData = snapshot.data!;
-
+      
           //for list of company name
           List<String> _companyNames = userData.map<String>((e) => e["company_name"].toString()).toList();
           print(_companyNames);
@@ -67,12 +68,13 @@ class _AddUnitsState extends State<AddUnits> {
             for (var item in userData)
               item["company_name"]: item["company_id"]
           };
-
+      
           return Form(
             key : _formKey,
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
@@ -205,8 +207,14 @@ class _AddUnitsState extends State<AddUnits> {
                         if (_formKey.currentState!.validate()) {
                           // for a success
                           try {
-                            await registerUnit(widget.serviceid, _passwordController.text, _licensePlateController.text, companyLookup[_selectedValue] as int, 'ambulans') ;
-                              
+                            print('ia m triggered 1');
+                
+                            final regis = await registerUnit(widget.serviceid, _passwordController.text, _licensePlateController.text, companyLookup[_selectedValue] as int, 'ambulans') ;
+                            
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Register Unit Succesfull :)"))
+                            );
+                
                             Navigator.pushAndRemoveUntil(
                               context, 
                               MaterialPageRoute(
@@ -214,6 +222,8 @@ class _AddUnitsState extends State<AddUnits> {
                               ),
                               (Route<dynamic> route) => route.isFirst
                             );
+                              
+                            
                               
                           } catch (err) {
                             print(err);

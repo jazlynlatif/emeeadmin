@@ -6,30 +6,36 @@ import 'package:http/http.dart' as http;
 
 final AuthService _authService = AuthService();
 
+const String baseUrl = "https://cuddly-athena-emeeapp-f2eaeb08.koyeb.app";
+
 Stream getAssignedReports(int admin) async*{
-  String? token;
-  token = await _authService.getAccessToken();
 
   yield* Stream.periodic(const Duration(seconds: 2)).asyncMap((_) async {
     try {
 
+      String? token;
+      token = await _authService.getAccessToken();
+
       var url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/admin/$admin/report/get/assigned'),
+        Uri.parse('$baseUrl/admin/$admin/report/get/assigned'),
         headers : {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
         }
       );
+      print(url.statusCode);
 
-      if (url.statusCode != 200 || url.statusCode != 203) {
+      if (url.statusCode == 401 || url.statusCode == 403) {
         // 🔁 TRY REFRESH
         final newToken = await refreshAccessToken();
         if (newToken == null) {
           throw Exception('Session expired');
         }
 
+        token = newToken;
+
         url = await http.get(
-          Uri.parse('http://10.0.2.2:5001/admin/$admin/report/get/assigned'),
+          Uri.parse('$baseUrl/admin/$admin/report/get/assigned'),
           headers : {
             "Content-type" : "application/json",
             "Authorization" : "Bearer $token"
@@ -53,22 +59,24 @@ Stream getUnassignedReports(int admin) async*{
     try {
 
       var url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/admin/$admin/report/get/unassigned'),
+        Uri.parse('$baseUrl/admin/$admin/report/get/unassigned'),
         headers : {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
         }
       );
 
-      if (url.statusCode != 200 || url.statusCode != 203) {
+      if (url.statusCode == 401 || url.statusCode == 403) {
         // 🔁 TRY REFRESH
         final newToken = await refreshAccessToken();
         if (newToken == null) {
           throw Exception('Session expired');
         }
 
+        token = newToken;
+
         url = await http.get(
-          Uri.parse('http://10.0.2.2:5001/admin/$admin/report/get/unassigned'),
+          Uri.parse('$baseUrl/admin/$admin/report/get/unassigned'),
           headers : {
             "Content-type" : "application/json",
             "Authorization" : "Bearer $token"
@@ -90,22 +98,24 @@ Future getReportHistory(int service,String start, String end) async {
 
   try {
     var url = await http.get(
-      Uri.parse('http://10.0.2.2:5001/admin/$service/history/report/get/$start/$end'),
+      Uri.parse('$baseUrl/admin/$service/history/report/get/$start/$end'),
       headers: {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
       }
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/admin/$service/history/report/get/$start/$end'),
+        Uri.parse('$baseUrl/admin/$service/history/report/get/$start/$end'),
         headers: {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -126,22 +136,24 @@ Future getUnitReportHistory(int service, int unitid, String start, String end) a
 
   try {
     var url = await http.get(
-      Uri.parse('http://10.0.2.2:5001/admin/unit/$service/$unitid/history/report/get/$start/$end'),
+      Uri.parse('$baseUrl/admin/unit/$service/$unitid/history/report/get/$start/$end'),
       headers: {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
       }
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url =await http.get(
-        Uri.parse('http://10.0.2.2:5001/admin/unit/$service/$unitid/history/report/get/$start/$end'),
+        Uri.parse('$baseUrl/admin/unit/$service/$unitid/history/report/get/$start/$end'),
         headers: {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -162,22 +174,24 @@ Future getReportInformation(int reportid, int status, int serviceid) async {
 
   try {
     var url = await http.get(
-      Uri.parse('http://10.0.2.2:5001/report/get/$serviceid/$reportid/$status'),
+      Uri.parse('$baseUrl/report/get/$serviceid/$reportid/$status'),
       headers: {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
       }
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/report/get/$serviceid/$reportid/$status'),
+        Uri.parse('$baseUrl/report/get/$serviceid/$reportid/$status'),
         headers: {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -197,22 +211,24 @@ Future getAssesmentResult(int reportid) async {
 
   try {
     var url = await http.get(
-      Uri.parse('http://10.0.2.2:5001/admin/assesment/get/$reportid'),
+      Uri.parse('$baseUrl/admin/assesment/get/$reportid'),
       headers: {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
       }
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/admin/assesment/get/$reportid'),
+        Uri.parse('$baseUrl/admin/assesment/get/$reportid'),
         headers: {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -232,22 +248,24 @@ Future getMessageHistory(int report) async{
 
   try {
     var url = await http.get(
-      Uri.parse('http://10.0.2.2:5001/history/message/get/$report'),
+      Uri.parse('$baseUrl/history/message/get/$report'),
       headers: {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
       }
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/history/message/get/$report'),
+        Uri.parse('$baseUrl/history/message/get/$report'),
         headers: {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -268,22 +286,24 @@ Stream getMessage(int report) async*{
     try {
 
       var url = await http.get(
-        Uri.parse('http://10.0.2.2:5001/admin/message/get/$report'),
+        Uri.parse('$baseUrl/admin/message/get/$report'),
         headers : {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
         }
       );
-      
-      if (url.statusCode != 200 || url.statusCode != 203) {
+      print(url.statusCode);
+      if (url.statusCode == 401 || url.statusCode == 403) {
         // 🔁 TRY REFRESH
         final newToken = await refreshAccessToken();
         if (newToken == null) {
           throw Exception('Session expired');
         }
 
+        token = newToken;
+
         url = await http.get(
-          Uri.parse('http://10.0.2.2:5001/admin/message/get/$report'),
+          Uri.parse('$baseUrl/admin/message/get/$report'),
           headers : {
             "Content-type" : "application/json",
             "Authorization" : "Bearer $token"
@@ -304,7 +324,7 @@ Future sendMessage(String message, int report) async{
     token = await _authService.getAccessToken();
 
     var url = await http.post(
-      Uri.parse('http://10.0.2.2:5001/admin/message/send'),
+      Uri.parse('$baseUrl/admin/message/send'),
       headers : {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
@@ -315,15 +335,17 @@ Future sendMessage(String message, int report) async{
       })
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url = await http.post(
-        Uri.parse('http://10.0.2.2:5001/admin/message/send'),
+        Uri.parse('$baseUrl/admin/message/send'),
         headers : {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -348,7 +370,7 @@ Future postEndtime(int reportid, String endedat) async {
     token = await _authService.getAccessToken();
 
     var url = await http.post(
-      Uri.parse('http://10.0.2.2:5001/admin/report/post/ended'),
+      Uri.parse('$baseUrl/admin/report/post/ended'),
       headers: {
         "Content-type" : "application/json",
         "Authorization" : "Bearer $token"
@@ -359,15 +381,17 @@ Future postEndtime(int reportid, String endedat) async {
       })
     );
 
-    if (url.statusCode != 200 || url.statusCode != 203) {
+    if (url.statusCode == 401 || url.statusCode == 403) {
       // 🔁 TRY REFRESH
       final newToken = await refreshAccessToken();
       if (newToken == null) {
         throw Exception('Session expired');
       }
 
+      token = newToken;
+
       url = await http.post(
-        Uri.parse('http://10.0.2.2:5001/admin/report/post/ended'),
+        Uri.parse('$baseUrl/admin/report/post/ended'),
         headers: {
           "Content-type" : "application/json",
           "Authorization" : "Bearer $token"
@@ -383,4 +407,53 @@ Future postEndtime(int reportid, String endedat) async {
   } catch (err) {
     throw Exception("error: $err");
   }
+}
+
+Stream updateLocation(double latitude, double longitude, int unitsid) async* {
+  yield* Stream.periodic(const Duration(seconds: 2)).asyncMap((_) async {
+    try {
+      String? token;
+      token = await _authService.getAccessToken();
+      var url = await http.put(
+        Uri.parse('$baseUrl/admin/location/update'),
+        headers: {
+          "Content-type" : "application/json",
+          "Authorization" : "Bearer $token"
+        },
+        body: jsonEncode({
+          "latitude" : latitude,
+          "longitude" : longitude,
+          "unitsid" : unitsid
+        })
+      );
+
+      if (url.statusCode == 401 || url.statusCode == 403) {
+        // 🔁 TRY REFRESH
+        final newToken = await refreshAccessToken();
+        if (newToken == null) {
+          throw Exception('Session expired');
+        }
+
+        token = newToken;
+
+        url = await http.put(
+          Uri.parse('$baseUrl/admin/location/update'),
+          headers : {
+            "Content-type" : "application/json",
+            "Authorization" : "Bearer $newToken"
+          },
+          body: jsonEncode({
+            "latitude" : latitude,
+            "longitude" : longitude,
+            "unitsid" : unitsid
+          })
+        );
+      }
+
+      return url;
+
+    } catch (err) {
+      throw Exception("error: $err");
+    }
+  });
 }

@@ -1,17 +1,11 @@
 # emee_admin
 
+Emee is a an system designed to help users report an emergency to the Fire Department and Medical Service. This system Includes an application for users (reporters) and for admin (emergency services).
+
 A new Flutter project.
 
-## Getting Started
+## Project Demo
 
-This project is a starting point for a Flutter application.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tGoWDwp7cOY?si=1uU-fkTaKOoLZt61" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# emeeadmin
